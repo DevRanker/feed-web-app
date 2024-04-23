@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
+import {Feed} from "@/components/feed";
 
 export default function IndexPage() {
 	return (
@@ -52,6 +53,7 @@ export default function IndexPage() {
 						</span>
 					</Snippet>
 				</div>
+				<Feed/>
 			</section>
 		</DefaultLayout>
 	);
