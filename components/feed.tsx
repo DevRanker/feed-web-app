@@ -18,9 +18,10 @@ export function Star() {
 export function Feed() {
 	const [trendingRepos, setTrendingRepos] = useState([]);
 	const [updateAt, setUpdatedAt] = useState(0);
+	const trendingReposUrl = process.env.NEXT_PUBLIC_TRENDING_REPOSITORIES_URL;
 
 	useEffect(()=>{
-		fetch('/api/trending_repositories')
+		fetch(trendingReposUrl)
 			.then((res) => {
 				return res.json();
 			})
@@ -29,10 +30,10 @@ export function Feed() {
 				setTrendingRepos(data.repo_list);
 				setUpdatedAt(data.update_at);
 			});
-	},[]);
+	},[trendingReposUrl]);
 
 	return (
-		<div className="inline-block max-w-lg w-full">
+		<div className="inline-block max-w-2xl w-screen">
 			<Accordion  variant="bordered" hideIndicator>
 				{trendingRepos.map((repo_item, i) => (
 					<AccordionItem
