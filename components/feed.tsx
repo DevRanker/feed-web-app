@@ -1,5 +1,6 @@
 import {Accordion, AccordionItem} from "@nextui-org/react";
 import { Link } from "@nextui-org/link";
+import { useState, useEffect } from 'react';
 
 
 export function Star() {
@@ -15,25 +16,27 @@ export function Star() {
 }
 
 export function Feed() {
-	const item = {
-		repo_id: 772699441,
-		repo_full_name: "meta-llama/llama3",
-		repo_link: "https://github.com/meta-llama/llama3",
-		repo_github_url: "https://api.github.com/repos/meta-llama/llama3",
-		new_stars: "59",
-		rank: "1"
-	}
-	const trending_repos = [
-			item,
-			item
-		];
+	const [trendingRepos, setTrendingRepos] = useState([]);
+	const [updateAt, setUpdatedAt] = useState(0);
+
+	useEffect(()=>{
+		fetch('/api/trending_repositories')
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				console.log(data);
+				setTrendingRepos(data.repo_list);
+				setUpdatedAt(data.update_at);
+			});
+	},[]);
 
 	return (
 		<div className="inline-block max-w-lg w-full">
 			<Accordion  variant="bordered" hideIndicator>
-				{trending_repos.map((repo_item, i) => (
+				{trendingRepos.map((repo_item, i) => (
 					<AccordionItem
-						key={i}
+						key={repo_item.rank}
 						aria-label={repo_item.repo_full_name}
 						startContent={repo_item.rank}
 						title={
