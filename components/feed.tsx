@@ -18,7 +18,7 @@ export function Star() {
 export function Feed() {
 	const [trendingRepos, setTrendingRepos] = useState([]);
 	const [updateAt, setUpdatedAt] = useState(0);
-	const trendingReposUrl = process.env.NEXT_PUBLIC_TRENDING_REPOSITORIES_URL;
+	const trendingReposUrl = process.env.NEXT_PUBLIC_TRENDING_REPOSITORIES_URL!;
 
 	useEffect(()=>{
 		fetch(trendingReposUrl)
@@ -26,7 +26,6 @@ export function Feed() {
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data);
 				setTrendingRepos(data.repo_list);
 				setUpdatedAt(data.update_at);
 			});
@@ -37,17 +36,17 @@ export function Feed() {
 			<Accordion  variant="bordered" hideIndicator>
 				{trendingRepos.map((repo_item, i) => (
 					<AccordionItem
-						key={repo_item.rank}
-						aria-label={repo_item.repo_full_name}
-						startContent={repo_item.rank}
+						key={repo_item['rank']}
+						aria-label={repo_item['repo_full_name']}
+						startContent={repo_item['rank']}
 						title={
-							<Link isExternal href={repo_item.repo_link}>
-								{repo_item.repo_full_name}
+							<Link isExternal href={repo_item['repo_link']}>
+								{repo_item['repo_full_name']}
 							</Link>
 						}
 						subtitle={
-							<span class="flex">
-								Up by&nbsp;<strong>{repo_item.new_stars}&nbsp;</strong><Star/>
+							<span className="flex">
+								Up by&nbsp;<strong>{repo_item['new_stars']}&nbsp;</strong><Star/>
 							</span>
 						}
 						>

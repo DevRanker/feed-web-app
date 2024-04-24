@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<NextUIProvider navigate={router.push}>
 			<NextThemesProvider defaultTheme = 'dark'>
+				{/* @ts-expect-error Server Component */}
 				<Component {...pageProps} />
 			</NextThemesProvider>
 		</NextUIProvider>

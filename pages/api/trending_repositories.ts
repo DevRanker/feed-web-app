@@ -1,3 +1,5 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+
 const item = {
   repo_id: 772699441,
   repo_full_name: "meta-llama/llama3",
@@ -7,7 +9,10 @@ const item = {
   rank: "1"
 }
 
-export default function handler(req,res) {
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<any>
+) {
   const trending_repositories = {
     update_at: 1713921819,
     repo_list: [

@@ -43,6 +43,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
   if (!isMounted) return <div className="w-6 h-6" />;
 
 	return (
+		/* @ts-expect-error Server Component */
 		<Component
 			{...getBaseProps({
 				className: clsx(
