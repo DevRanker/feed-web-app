@@ -23,26 +23,32 @@ export function Feed() {
 		new_stars: "59",
 		rank: "1"
 	}
+	const trending_repos = [
+			item,
+			item
+		];
 
 	return (
 		<div className="inline-block max-w-lg w-full">
 			<Accordion  variant="bordered" hideIndicator>
-				<AccordionItem
-					key="1"
-					aria-label="Accordion 1"
-					startContent={1}
-					title={
-						<Link isExternal href={item.repo_link}>
-							{item.repo_full_name}
-						</Link>
-					}
-					subtitle={
-						<span class="flex">
-							Up by&nbsp;<strong>{item.new_stars}&nbsp;</strong><Star/>
-						</span>
-					}
-					>
-				</AccordionItem>
+				{trending_repos.map((repo_item, i) => (
+					<AccordionItem
+						key={i}
+						aria-label={repo_item.repo_full_name}
+						startContent={repo_item.rank}
+						title={
+							<Link isExternal href={repo_item.repo_link}>
+								{repo_item.repo_full_name}
+							</Link>
+						}
+						subtitle={
+							<span class="flex">
+								Up by&nbsp;<strong>{repo_item.new_stars}&nbsp;</strong><Star/>
+							</span>
+						}
+						>
+					</AccordionItem>
+				))}
 			</Accordion>
 		</div>
 	);
