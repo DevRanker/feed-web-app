@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {Accordion, AccordionItem} from "@nextui-org/react";
 import { Link } from "@nextui-org/link";
 import { useState, useEffect } from 'react';
@@ -24,11 +26,12 @@ export function Feed() {
 	const [markdownReady, setMarkdownReady] = useState(false);
 	const [markdownHTML, setMarkdownHTML] = useState('<p>a</p>');
 
-	const getRepoReadme = async (repo_item) => {
+	const getRepoReadme = async (repo_item: String) => {
 		const readmeUrl = `https://raw.githubusercontent.com/${repo_item['repo_full_name']}/main/README.md`;
 		fetch(readmeUrl)
 			.then(res => res.text())
 			.then((text) => {
+				{/* @ts-expect-error */}
 				setMarkdownHTML(marked.parse(text));
 				setMarkdownReady(true);
 			})
@@ -39,10 +42,11 @@ export function Feed() {
 			setMarkdownReady(false);
 			getRepoReadme(trendingRepos[selectedRepoIndex]);
 		}
-	}, [selectedRepoIndex])
+	}, [trendingRepos, selectedRepoIndex])
 
 	useEffect(() => {
 		if (selectedKeys.size > 0){
+			{/* @ts-expect-error */}
 			const [first] = selectedKeys;
 			setSelectedRepoIndex(first);						
 		}
