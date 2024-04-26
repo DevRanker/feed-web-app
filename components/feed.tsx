@@ -25,6 +25,9 @@ export function Feed() {
 	const [selectedRepoIndex, setSelectedRepoIndex] = useState();
 	const [markdownReady, setMarkdownReady] = useState(false);
 	const [markdownHTML, setMarkdownHTML] = useState('<p>a</p>');
+	const itemClasses = {
+	    trigger: "data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center"
+	};
 
 	const getRepoReadme = async (repo_item: String) => {
 		const readmeUrl = `https://raw.githubusercontent.com/${repo_item['repo_full_name']}/main/README.md`;
@@ -72,9 +75,9 @@ export function Feed() {
 				<div className="max-h-[80vh] overflow-auto">
 					<Accordion
 						variant="bordered"
-						hideIndicator
 						selectedKeys={selectedKeys}
 						onSelectionChange={setSelectedKeys}
+						itemClasses={itemClasses}
 					>
 						{trendingRepos.map((repo_item, i) => (
 							<AccordionItem
