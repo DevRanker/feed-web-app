@@ -25,7 +25,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 	return (
 		<PostHogProvider client={posthog}>
 			<NextUIProvider navigate={router.push}>
-				<NextThemesProvider defaultTheme = 'dark'>
+				<NextThemesProvider>
 					{/* @ts-expect-error Server Component */}
 					<Component {...pageProps} />
 				</NextThemesProvider>
