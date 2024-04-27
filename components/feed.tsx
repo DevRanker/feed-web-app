@@ -54,7 +54,17 @@ export function Feed() {
 				return res.json();
 			})
 			.then((data) => {
-				setTrendingRepos(data.repo_list.filter((repo_item) => repo_item['repository_details']['language'] != undefined));
+				setTrendingRepos(
+					data.repo_list.filter((repo_item) => {
+						if (repo_item['also_starred'].length == 0 ) {
+							return false
+						}
+						if (repo_item['repository_details']['language'] != undefined) {
+							return true;
+						}
+						return false;
+					})
+				);
 				setUpdatedAt(data.update_at);
 				setSelectedKeys(new Set(["0"]));
 			});
