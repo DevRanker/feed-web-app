@@ -84,7 +84,7 @@ export function Feed() {
 							<AccordionItem
 								key={i}
 								aria-label={repo_item['repo_full_name']}
-								startContent={repo_item['rank']}
+								startContent={i+1}
 								title={
 									<span className="flex justify-between">
 										<Link isExternal href={repo_item['repo_link']}>
