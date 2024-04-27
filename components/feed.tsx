@@ -5,6 +5,7 @@ import { Link } from "@nextui-org/link";
 import { useState, useEffect } from 'react';
 import {marked} from 'marked';
 import {Star} from '@/components/svgs/star';
+import {Fork} from '@/components/svgs/fork';
 
 export function Feed() {
 	const [trendingRepos, setTrendingRepos] = useState([]);
@@ -85,6 +86,17 @@ export function Feed() {
 									<>
 										<span className="flex">
 											{repo_item['repository_details']['description']}
+										</span>
+										<span className="flex justify-between pt-1">
+											<span className="flex">
+											{repo_item['repository_details']['license'] && `[${repo_item['repository_details']['license']['spdx_id']}] `}
+											{repo_item['repository_details']['language']} 
+											</span>
+											<span className="flex">
+												<Star starCount={repo_item['repository_details']['stargazers_count']}/>
+												&nbsp;&nbsp;
+												<Fork forkCount={repo_item['repository_details']['forks_count']}/>
+											</span>
 										</span>
 									</>
 								}
