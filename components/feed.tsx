@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import {marked} from 'marked';
 import {Star} from '@/components/svgs/star';
 import {Fork} from '@/components/svgs/fork';
+import {SuggestedRepos} from '@/components/suggested_repos';
 
 export function Feed() {
 	const [trendingRepos, setTrendingRepos] = useState([]);
@@ -101,6 +102,7 @@ export function Feed() {
 									</>
 								}
 								>
+								<SuggestedRepos suggested_repos={repo_item['also_starred'].slice(0,4)} />
 							</AccordionItem>
 						))}
 					</Accordion>
