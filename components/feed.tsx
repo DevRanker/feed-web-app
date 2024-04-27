@@ -53,7 +53,7 @@ export function Feed() {
 				return res.json();
 			})
 			.then((data) => {
-				setTrendingRepos(data.repo_list);
+				setTrendingRepos(data.repo_list.filter((repo_item) => repo_item['repository_details']['language'] != undefined));
 				setUpdatedAt(data.update_at);
 				setSelectedKeys(new Set(["0"]));
 			});
