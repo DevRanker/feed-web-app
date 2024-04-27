@@ -13,7 +13,7 @@ export function Feed() {
 	const [updateAt, setUpdatedAt] = useState(0);
 	const trendingReposUrl = process.env.NEXT_PUBLIC_TRENDING_REPOSITORIES_URL!;
 	const [selectedKeys, setSelectedKeys] = useState(new Set([]));
-	const [selectedRepoIndex, setSelectedRepoIndex] = useState();
+	const [selectedRepo, setSelectedRepo] = useState();
 	const [markdownReady, setMarkdownReady] = useState(false);
 	const [markdownHTML, setMarkdownHTML] = useState('<p>a</p>');
 	const itemClasses = {
@@ -33,17 +33,17 @@ export function Feed() {
 	};
 
 	useEffect(() => {
-		if (selectedRepoIndex) {
+		if (selectedRepo) {
 			setMarkdownReady(false);
-			getRepoReadme(trendingRepos[selectedRepoIndex]);
+			getRepoReadme(selectedRepo);
 		}
-	}, [trendingRepos, selectedRepoIndex])
+	}, [trendingRepos, selectedRepo])
 
 	useEffect(() => {
 		if (selectedKeys.size > 0){
 			{/* @ts-expect-error */}
-			const [first] = selectedKeys;
-			setSelectedRepoIndex(first);						
+			const [selectedIndex] = selectedKeys;
+			setSelectedRepo(trendingRepos[selectedIndex]);
 		}
 	}, [selectedKeys])
 
@@ -121,16 +121,16 @@ export function Feed() {
 					</Accordion>
 				</div>
 				<div className="col-span-2">
-					{selectedRepoIndex &&
+					{selectedRepo &&
 						<>
 							<span className="flex items-center">
-								<Avatar isBordered radius="full" size="sm" src={trendingRepos[selectedRepoIndex]['repository_details']['owner_avatar_url']} />
+								<Avatar isBordered radius="full" size="sm" src={selectedRepo['repository_details']['owner_avatar_url']} />
 								<Link isExternal
-									href={trendingRepos[selectedRepoIndex]['repo_link']}
-									className="px-2 font-extrabold tracking-tight md:text-4xl dark:text-white">{trendingRepos[selectedRepoIndex]['repo_full_name']}
+									href={selectedRepo['repo_link']}
+									className="px-2 font-extrabold tracking-tight md:text-4xl dark:text-white">{selectedRepo['repo_full_name']}
 								</Link>
 							</span>
-							<p><b>{trendingRepos[selectedRepoIndex]['repository_details']['description']}</b></p>
+							<p><b>{selectedRepo['repository_details']['description']}</b></p>
 						</>
 						}
 					{markdownReady && <iframe className=" w-full  h-[80vh] overflow-auto border-solid border-2" srcDoc={markdownHTML}></iframe>}
