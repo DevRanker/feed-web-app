@@ -66,7 +66,7 @@ export function Feed() {
 					})
 				);
 				setUpdatedAt(data.update_at);
-				setSelectedKeys(new Set(["0"]));
+				setSelectedKeys(new Set(["1"]));
 			});
 	},[trendingReposUrl]);
 
