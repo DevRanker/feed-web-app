@@ -26,7 +26,7 @@ export function Feed() {
 	const [markdownReady, setMarkdownReady] = useState(false);
 	const [markdownHTML, setMarkdownHTML] = useState('<p>a</p>');
 	const itemClasses = {
-	    trigger: "data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center"
+	    trigger: "data-[hover=true]:bg-default-100 rounded-lg flex items-center"
 	};
 
 
@@ -86,14 +86,21 @@ export function Feed() {
 								aria-label={repo_item['repo_full_name']}
 								startContent={repo_item['rank']}
 								title={
-									<Link isExternal href={repo_item['repo_link']}>
-										{repo_item['repo_full_name']}
-									</Link>
+									<span className="flex justify-between">
+										<Link isExternal href={repo_item['repo_link']}>
+											{repo_item['repo_full_name']}
+										</Link>
+										<span className="flex text-small">
+											Up by&nbsp;<strong>{repo_item['new_stars']}&nbsp;</strong><span><Star/></span>
+										</span>
+									</span>
 								}
 								subtitle={
-									<span className="flex">
-										Up by&nbsp;<strong>{repo_item['new_stars']}&nbsp;</strong><Star/>
-									</span>
+									<>
+										<span className="flex">
+											{repo_item['repository_details']['description']}
+										</span>
+									</>
 								}
 								>
 							</AccordionItem>
@@ -102,10 +109,13 @@ export function Feed() {
 				</div>
 				<div className="col-span-2">
 					{selectedRepoIndex &&
-						<Link isExternal
-							href={trendingRepos[selectedRepoIndex]['repo_link']}
-							className="mb-4 font-extrabold tracking-tight md:text-4xl dark:text-white">{trendingRepos[selectedRepoIndex]['repo_full_name']}
-						</Link>
+						<>
+							<Link isExternal
+								href={trendingRepos[selectedRepoIndex]['repo_link']}
+								className="font-extrabold tracking-tight md:text-4xl dark:text-white">{trendingRepos[selectedRepoIndex]['repo_full_name']}
+							</Link>
+							<p><b>{trendingRepos[selectedRepoIndex]['repository_details']['description']}</b></p>
+						</>
 						}
 					{markdownReady && <iframe className=" w-full  h-[80vh] overflow-auto border-solid border-2" srcDoc={markdownHTML}></iframe>}
 				</div>
