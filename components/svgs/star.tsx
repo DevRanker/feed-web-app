@@ -1,4 +1,9 @@
-export function Star({starCount, prefix}) {
+interface StarProps {
+	starCount?: number;
+	prefix?: string;
+}
+
+export function Star({starCount, prefix}: StarProps) {
 	return (
 		<div className="flex items-center space-x-3 text-xs text-gray-500">
 			<div className="flex item-center">

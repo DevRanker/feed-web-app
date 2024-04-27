@@ -1,4 +1,9 @@
-export function Fork({forkCount, prefix}) {
+interface ForkProps {
+	forkCount?: number;
+	prefix?: string;
+}
+
+export function Fork({forkCount, prefix}: ForkProps) {
 	return (
 		<div className="flex items-center space-x-3 text-xs text-gray-500">
 			<div className="flex item-center">

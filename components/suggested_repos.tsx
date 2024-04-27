@@ -3,7 +3,21 @@ import {Avatar, Button} from "@nextui-org/react";
 import {Star} from '@/components/svgs/star';
 import {Fork} from '@/components/svgs/fork';
 
-export function RelatedRepo({repo_details}) {
+interface RepoDetails {
+  name: string;
+  owner_login: string;
+  description: string;
+  stargazers_count: number;
+  forks_count: number;
+}
+
+interface RelatedRepo {
+  repo_details: RepoDetails
+}
+
+interface SuggestedRepo extends Array<number|RelatedRepo>{0:number, 1: RelatedRepo}
+
+export function RelatedRepo({repo_details}: RelatedRepo) {
   return (
     <Card className="max-w-[340px]">
       <CardHeader className="justify-between">
@@ -27,6 +41,7 @@ export function RelatedRepo({repo_details}) {
   );
 }
 
+// @ts-ignore
 export function SuggestedRepos({suggested_repos}) {
   return (
     <Card className="border-solid border-1" radius="none" shadow="none">
@@ -37,8 +52,9 @@ export function SuggestedRepos({suggested_repos}) {
       </CardHeader>
       <Divider/>
       <CardBody className="flex flex-row grid grid-cols-2 gap-3 overflow-x-scroll">
-        {suggested_repos.map((repo_item, i) => (
-          <RelatedRepo repo_details={repo_item[1]['repository_details']} />
+        {// @ts-ignore
+          suggested_repos.map((repo_item, i) => (
+          <RelatedRepo key={i} repo_details={repo_item[1]['repository_details']} />
         ))}
       </CardBody>
       <Divider/>
