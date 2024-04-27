@@ -13,6 +13,7 @@ export function Feed() {
 	const [updateAt, setUpdatedAt] = useState(0);
 	const trendingReposUrl = process.env.NEXT_PUBLIC_TRENDING_REPOSITORIES_URL!;
 	const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+	const [selectedRepoIndex, setSelectedRepoIndex] = useState();
 	const [selectedRepo, setSelectedRepo] = useState();
 	const [markdownReady, setMarkdownReady] = useState(false);
 	const [markdownHTML, setMarkdownHTML] = useState('<p>a</p>');
@@ -43,7 +44,10 @@ export function Feed() {
 		if (selectedKeys.size > 0){
 			{/* @ts-expect-error */}
 			const [selectedIndex] = selectedKeys;
+			setSelectedRepoIndex(selectedIndex);
 			setSelectedRepo(trendingRepos[selectedIndex]);
+		} else {
+			setSelectedRepo(trendingRepos[selectedRepoIndex]);
 		}
 	}, [selectedKeys])
 
@@ -115,7 +119,10 @@ export function Feed() {
 									</>
 								}
 								>
-								<SuggestedRepos suggested_repos={repo_item['also_starred'].slice(0,4)} />
+								<SuggestedRepos
+									suggested_repos={repo_item['also_starred'].slice(0,4)}
+									selectRepoHook={setSelectedRepo}
+								/>
 							</AccordionItem>
 						))}
 					</Accordion>

@@ -2,6 +2,7 @@ import {Card, CardHeader, CardBody, CardFooter, Divider} from "@nextui-org/react
 import {Avatar, Button} from "@nextui-org/react";
 import {Star} from '@/components/svgs/star';
 import {Fork} from '@/components/svgs/fork';
+import React from 'react';
 
 interface RepoDetails {
   name: string;
@@ -13,14 +14,16 @@ interface RepoDetails {
 }
 
 interface RelatedRepo {
-  repo_details: RepoDetails
+  repo_index: number;
+  repo_details: RepoDetails;
+  selectRepoHook: (repo_index: number) => void;
 }
 
 interface SuggestedRepo extends Array<number|RelatedRepo>{0:number, 1: RelatedRepo}
 
-export function RelatedRepo({repo_details}: RelatedRepo) {
+export function RelatedRepo({repo_index, repo_details, selectRepoHook}: RelatedRepo) {
   return (
-    <Card className="max-w-[340px]">
+    <Card isPressable onPress={() => selectRepoHook(repo_index)} className="max-w-[340px]">
       <CardHeader className="justify-between">
         <div className="flex gap-5">
           <div className="flex gap-1 items-start">
@@ -46,7 +49,11 @@ export function RelatedRepo({repo_details}: RelatedRepo) {
 }
 
 // @ts-ignore
-export function SuggestedRepos({suggested_repos}) {
+export function SuggestedRepos({suggested_repos, selectRepoHook}) {
+  const selectRepoIndex = (repo_index: number) => {
+    console.log(suggested_repos[repo_index]);
+    selectRepoHook(suggested_repos[repo_index][1]);
+  }
   return (
     <Card className="border-solid border-1" radius="none" shadow="none">
       <CardHeader className="flex gap-3 p-0 px-2">
@@ -58,7 +65,12 @@ export function SuggestedRepos({suggested_repos}) {
       <CardBody className="flex flex-row grid grid-cols-2 gap-3 overflow-x-scroll">
         {// @ts-ignore
           suggested_repos.map((repo_item, i) => (
-          <RelatedRepo key={i} repo_details={repo_item[1]['repository_details']} />
+          <RelatedRepo
+            key={i}
+            repo_index={i}
+            repo_details={repo_item[1]['repository_details']}
+            selectRepoHook={selectRepoIndex}
+          />
         ))}
       </CardBody>
       <Divider/>
