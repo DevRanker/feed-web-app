@@ -89,13 +89,13 @@ export function Feed() {
 										</span>
 										<span className="flex justify-between pt-1">
 											<span className="flex">
-											{repo_item['repository_details']['license'] && `[${repo_item['repository_details']['license']['spdx_id']}] `}
-											{repo_item['repository_details']['language']} 
-											</span>
-											<span className="flex">
 												<Star starCount={repo_item['repository_details']['stargazers_count']}/>
 												&nbsp;&nbsp;
 												<Fork forkCount={repo_item['repository_details']['forks_count']}/>
+											</span>
+											<span className="flex">
+											{repo_item['repository_details']['language']} 
+											{repo_item['repository_details']['license'] && ` [${repo_item['repository_details']['license']['spdx_id']}]`}
 											</span>
 										</span>
 									</>
