@@ -78,9 +78,7 @@ export function Feed() {
 										<Link isExternal href={repo_item['repo_link']}>
 											{repo_item['repo_full_name']}
 										</Link>
-										<span className="flex text-small">
-											Up by&nbsp;<strong>{repo_item['new_stars']}&nbsp;</strong><span><Star/></span>
-										</span>
+										<span><Star starCount={repo_item['new_stars']} prefix="+&nbsp;"/></span>
 									</span>
 								}
 								subtitle={
