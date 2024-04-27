@@ -31,7 +31,7 @@ export function Feed() {
 
 
 	const getRepoReadme = async (repo_item: String) => {
-		const readmeUrl = `https://raw.githubusercontent.com/${repo_item['repo_full_name']}/main/README.md`;
+		const readmeUrl = `https://raw.githubusercontent.com/${repo_item['repo_full_name']}/${repo_item['repository_details']['default_branch']}/README.md`;
 
 		fetch(readmeUrl)
 			.then(res => res.text())
