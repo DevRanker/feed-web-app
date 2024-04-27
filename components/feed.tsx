@@ -29,8 +29,10 @@ export function Feed() {
 	    trigger: "data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center"
 	};
 
+
 	const getRepoReadme = async (repo_item: String) => {
 		const readmeUrl = `https://raw.githubusercontent.com/${repo_item['repo_full_name']}/main/README.md`;
+
 		fetch(readmeUrl)
 			.then(res => res.text())
 			.then((text) => {
@@ -65,7 +67,6 @@ export function Feed() {
 				setTrendingRepos(data.repo_list);
 				setUpdatedAt(data.update_at);
 				setSelectedKeys(new Set(["0"]));
-
 			});
 	},[trendingReposUrl]);
 
@@ -106,7 +107,7 @@ export function Feed() {
 							className="mb-4 font-extrabold tracking-tight md:text-4xl dark:text-white">{trendingRepos[selectedRepoIndex]['repo_full_name']}
 						</Link>
 						}
-					{markdownReady && <iframe className=" w-full  h-[80vh] overflow-auto border-solid border-2" srcdoc={markdownHTML}></iframe>}
+					{markdownReady && <iframe className=" w-full  h-[80vh] overflow-auto border-solid border-2" srcDoc={markdownHTML}></iframe>}
 				</div>
 			</div>
 		</div>
