@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import {Accordion, AccordionItem} from "@nextui-org/react";
+import {Accordion, AccordionItem, Avatar} from "@nextui-org/react";
 import { Link } from "@nextui-org/link";
 import { useState, useEffect } from 'react';
 import {marked} from 'marked';
@@ -87,9 +87,12 @@ export function Feed() {
 								startContent={i+1}
 								title={
 									<span className="flex justify-between">
-										<Link isExternal href={repo_item['repo_link']}>
-											{repo_item['repo_full_name']}
-										</Link>
+										<span className="flex">
+											<Avatar radius="full" size="sm" src={repo_item['repository_details']['owner_avatar_url']} />
+											<Link className='pl-1' isExternal href={repo_item['repo_link']}>
+												{repo_item['repo_full_name']}
+											</Link>
+										</span>
 										<span><Star starCount={repo_item['new_stars']} prefix="+&nbsp;"/></span>
 									</span>
 								}
@@ -120,10 +123,13 @@ export function Feed() {
 				<div className="col-span-2">
 					{selectedRepoIndex &&
 						<>
-							<Link isExternal
-								href={trendingRepos[selectedRepoIndex]['repo_link']}
-								className="font-extrabold tracking-tight md:text-4xl dark:text-white">{trendingRepos[selectedRepoIndex]['repo_full_name']}
-							</Link>
+							<span className="flex items-center">
+								<Avatar isBordered radius="full" size="sm" src={trendingRepos[selectedRepoIndex]['repository_details']['owner_avatar_url']} />
+								<Link isExternal
+									href={trendingRepos[selectedRepoIndex]['repo_link']}
+									className="px-2 font-extrabold tracking-tight md:text-4xl dark:text-white">{trendingRepos[selectedRepoIndex]['repo_full_name']}
+								</Link>
+							</span>
 							<p><b>{trendingRepos[selectedRepoIndex]['repository_details']['description']}</b></p>
 						</>
 						}

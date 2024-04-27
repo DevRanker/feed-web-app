@@ -6,6 +6,7 @@ import {Fork} from '@/components/svgs/fork';
 interface RepoDetails {
   name: string;
   owner_login: string;
+  owner_avatar_url: string;
   description: string;
   stargazers_count: number;
   forks_count: number;
@@ -22,9 +23,12 @@ export function RelatedRepo({repo_details}: RelatedRepo) {
     <Card className="max-w-[340px]">
       <CardHeader className="justify-between">
         <div className="flex gap-5">
-          <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">{repo_details['name']}</h4>
-            <h5 className="text-small tracking-tight text-default-400">{repo_details['owner_login']}</h5>
+          <div className="flex gap-1 items-start">
+            <Avatar radius="full" size="sm" src={repo_details['owner_avatar_url']} />
+            <div className="flex flex-col gap-1 items-start justify-center">
+              <h4 className="text-small font-semibold leading-none text-default-600">{repo_details['name']}</h4>
+              <h5 className="text-small tracking-tight text-default-400">{repo_details['owner_login']}</h5>
+            </div>
           </div>
         </div>
       </CardHeader>
